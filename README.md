@@ -26,3 +26,13 @@ For this exercise, we'll work with the file `scheduling_addemployees.py`. This f
 4. Harry: [3,2,1,4]
 
 When you run this problem, you should see two employees scheduled for each shift.
+
+## Exercise 3
+
+In this next exercise, we'll work with the file `scheduling_restrictions.py`. In this problem, we have 8 employees and 4 different shift options.  We've set up the initial DQM model for all 8 employees with their preferences over the 4 shifts. Now we need to take into account the following restrictions.
+
+1. Anna is not able to work during shift 4.
+2. Bill and Frank cannot work during the same shift.
+3. Erica and Harriet would like to work the same shift.
+
+Modify the program to reflect these additional constraints. Note that when you run your program, you may not have two employees per shift this time.
