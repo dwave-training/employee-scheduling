@@ -32,9 +32,9 @@ for name in employees:
 dqm.set_linear("Anna", [1,2,3,4])
 dqm.set_linear("Bill", [3,2,1,4])
 dqm.set_linear("Chris", [4,2,3,1])
-dqm.set_linear("Diane", [4,2,1,3])
-dqm.set_linear("Erica", [2,1,3,4])
-dqm.set_linear("Frank", [1,2,4,3])
+dqm.set_linear("Diane", [4,1,2,3])
+dqm.set_linear("Erica", [1,2,3,4])
+dqm.set_linear("Frank", [3,2,1,4])
 dqm.set_linear("George", [4,2,3,1])
 dqm.set_linear("Harriet", [4,1,2,3])
 
