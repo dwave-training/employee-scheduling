@@ -36,3 +36,7 @@ In this next exercise, we'll work with the file `scheduling_restrictions.py`. In
 3. Erica and Harriet would like to work the same shift.
 
 Modify the program to reflect these additional constraints. Note that when you run your program, you may not have two employees per shift this time.
+
+## Challenge: Exercise 4
+
+For this final exercise, start with your completed file `scheduling_restrictions.py` from Exercise 3.  The optimal solution for Exercise 3 had some days with just 1 person scheduled and others with many more.  Add some linear and/or quadratic biases to your DQM so that each shift gets exactly two people scheduled.
