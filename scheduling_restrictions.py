@@ -43,7 +43,7 @@ dqm.set_linear("Harriet", [4,1,2,3])
 # TODO: Set some quadratic biases to reflect the restrictions in the README.
 
 # Initialize the DQM solver
-sampler = LeapHybridDQMSampler(profile="dqm_test")
+sampler = LeapHybridDQMSampler()
 
 # Solve the problem using the DQM solver
 sampleset = sampler.sample_dqm(dqm)

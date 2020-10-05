@@ -34,7 +34,7 @@ dqm.set_linear("Chris", [4,2,3,1])
 dqm.set_linear("Diane", [4,1,2,3])
 
 # Initialize the DQM solver
-sampler = LeapHybridDQMSampler(profile="dqm_test")
+sampler = LeapHybridDQMSampler()
 
 # Solve the problem using the DQM solver
 sampleset = sampler.sample_dqm(dqm)
