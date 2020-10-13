@@ -67,7 +67,7 @@ def solve_problem(dqm, sampler):
     '''Runs the provided dqm object on the designated sampler'''
 
     # Initialize the DQM solver
-    sampler = LeapHybridDQMSampler()
+    sampler = set_sampler()
 
     # Solve the problem using the DQM solver
     sampleset = sampler.sample_dqm(dqm)

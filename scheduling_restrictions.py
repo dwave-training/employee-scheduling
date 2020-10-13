@@ -75,7 +75,7 @@ def solve_problem(dqm, sampler):
     '''Runs the provided dqm object on the designated sampler'''
 
     # Initialize the DQM solver
-    sampler = LeapHybridDQMSampler()
+    sampler = set_sampler()
 
     # Solve the problem using the DQM solver
     sampleset = sampler.sample_dqm(dqm)
@@ -89,7 +89,7 @@ def process_sampleset(sampleset):
     # Get the first solution
     sample = sampleset.first.sample
 
-    shift_schedule=[ [] for i in range(num_shifts)]
+    shift_schedule=[ [] for i in range(4)]
 
     # Interpret according to shifts
     for key, val in sample.items():
