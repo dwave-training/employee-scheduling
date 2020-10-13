@@ -32,7 +32,7 @@ def set_sampler():
     return sampler
 
 # Create DQM object
-def build_dqm(employees, shifts):
+def build_dqm(preferences, shifts):
     '''Builds the DQM for our problem'''
 
     num_shifts = len(shifts)
@@ -41,14 +41,12 @@ def build_dqm(employees, shifts):
     dqm = DiscreteQuadraticModel()
 
     # Build the DQM starting by adding variables
-    for name in employees:
+    for name in preferences:
         dqm.add_variable(num_shifts, label=name)
 
     # Use linear weights to assign employee preferences
-    dqm.set_linear("Anna", [1,2,3,4])
-    dqm.set_linear("Bill", [3,2,1,4])
-    dqm.set_linear("Chris", [4,2,3,1])
-    dqm.set_linear("Diane", [4,1,2,3])
+    for name in preferences:
+        dqm.set_linear(name, preferences[name])
 
     return dqm
 
@@ -81,11 +79,14 @@ def process_sampleset(sampleset):
 if __name__ == "__main__":
 
     # Problem information
-    employees = ["Anna", "Bill", "Chris", "Diane"]
+    preferences = { "Anna": [1,2,3,4],
+                    "Bill": [3,2,1,4],
+                    "Chris": [4,2,3,1],
+                    "Diane": [4,1,2,3]}
     shifts = [1, 2, 3, 4]
     num_shifts = len(shifts)
 
-    dqm = build_dqm(employees, shifts)
+    dqm = build_dqm(preferences, shifts)
 
     sampler = set_sampler()
 
