@@ -31,11 +31,23 @@ def set_sampler():
 
     return sampler
 
+# Set employees and preferences
+def employee_preferences():
+    '''Returns a dictionary of employees with their preferences'''
+
+    preferences = { "Anna": [1,2,3,4],
+                    "Bill": [3,2,1,4],
+                    "Chris": [4,2,3,1],
+                    "Diane": [4,1,2,3]}
+
+    return preferences
+
 # Create DQM object
-def build_dqm(preferences, shifts):
+def build_dqm():
     '''Builds the DQM for our problem'''
 
-    num_shifts = len(shifts)
+    preferences = employee_preferences()
+    num_shifts = 4
 
     # Initialize the DQM object
     dqm = DiscreteQuadraticModel()
@@ -52,6 +64,7 @@ def build_dqm(preferences, shifts):
 
 # Solve the problem
 def solve_problem(dqm, sampler):
+    '''Runs the provided dqm object on the designated sampler'''
 
     # Initialize the DQM solver
     sampler = LeapHybridDQMSampler()
@@ -65,13 +78,9 @@ def solve_problem(dqm, sampler):
 if __name__ == "__main__":
 
     # Problem information
-    preferences = { "Anna": [1,2,3,4],
-                    "Bill": [3,2,1,4],
-                    "Chris": [4,2,3,1],
-                    "Diane": [4,1,2,3]}
     shifts = [1, 2, 3, 4]
 
-    dqm = build_dqm(preferences, shifts)
+    dqm = build_dqm()
 
     sampler = set_sampler()
 

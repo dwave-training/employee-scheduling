@@ -18,7 +18,7 @@ Note that this problem does not have any quadratic biases - we're only consideri
 
 ## Exercise 2
 
-For this exercise, we'll work with the file `scheduling_addemployees.py`. This file is very similat to `scheduling_preferences.py`, and you will be adding additional employees to the schedule.  Add the following employees with their associated preferences for shifts 1-4. Note that you'll need to add the employee names to the list of employees so that a variable is created for each of them, as well as set the linear biases for their preferences.
+For this exercise, we'll work with the file `scheduling_addemployees.py`. This file is very similar to `scheduling_preferences.py`, and you will be adding additional employees to the schedule.  Add the following employees with their associated preferences for shifts 1-4 in the function `employee_preferences()`. 
 
 1. Erik: [1,3,2,4]
 2. Francis: [4,3,2,1]
@@ -35,7 +35,7 @@ In this next exercise, we'll work with the file `scheduling_restrictions.py`. In
 2. Bill and Frank cannot work during the same shift.
 3. Erica and Harriet would like to work the same shift.
 
-Modify the program to reflect these additional constraints. Note that when you run your program, you may not have two employees per shift this time.
+Modify the function `build_dqm()` to reflect these additional constraints. Note that when you run your program, you may not have two employees per shift this time.
 
 ## Challenge: Exercise 4
 
