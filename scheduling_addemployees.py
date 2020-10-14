@@ -14,44 +14,98 @@
 
 from dimod import DiscreteQuadraticModel
 from dwave.system import LeapHybridDQMSampler
-from collections import defaultdict
 
-# Problem information
-# TODO: Add new employees to list
-employees = ["Anna", "Bill", "Chris", "Diane"]
-shifts = [1, 2, 3, 4]
-num_shifts = len(shifts)
+def get_token():
+    '''Return your personal access token'''
+    
+    # TODO: Enter your token here
+    return 'YOUR-TOKEN-HERE'
 
-# Initialize the DQM object
-dqm = DiscreteQuadraticModel()
+# Set the solver we're going to use
+def set_sampler():
+    '''Returns a dimod sampler'''
 
-# Build the DQM starting by adding variables
-for name in employees:
-    dqm.add_variable(num_shifts, label=name)
+    token = get_token()
+    sampler = LeapHybridDQMSampler(endpoint='https://cloud.dwavesys.com/sapi/', 
+                                              token=token)
 
-# Use linear weights to assign employee preferences
-dqm.set_linear("Anna", [1,2,3,4])
-dqm.set_linear("Bill", [3,2,1,4])
-dqm.set_linear("Chris", [4,2,3,1])
-dqm.set_linear("Diane", [4,1,2,3])
+    return sampler
 
-# TODO: Add additional employees starting on the next line
+# Set employees and preferences
+def employee_preferences():
+    '''Returns a dictionary of employees with their preferences'''
 
-# Initialize the DQM solver
-sampler = LeapHybridDQMSampler()
+    preferences = { "Anna": [1,2,3,4],
+                    "Bill": [3,2,1,4],
+                    "Chris": [4,2,3,1],
+                    "Diane": [4,1,2,3]}
 
-# Solve the problem using the DQM solver
-sampleset = sampler.sample_dqm(dqm)
+    # TODO: Add additional employees with preferences
 
-# Get the first solution, and print it
-sample = sampleset.first.sample
-energy = sampleset.first.energy
+    return preferences
 
-shift_schedule=[ [] for i in range(num_shifts)]
 
-# Interpret according to shifts
-for key, val in sample.items():
-    shift_schedule[val].append(key)
+# Create DQM object
+def build_dqm():
+    '''Builds the DQM for our problem'''
 
-for i in range(num_shifts):
-    print("Shift:", shifts[i], "\tEmployee(s): ", shift_schedule[i])
+    preferences = employee_preferences()
+    num_shifts = 4
+
+    # Initialize the DQM object
+    dqm = DiscreteQuadraticModel()
+
+    # Build the DQM starting by adding variables
+    for name in preferences:
+        dqm.add_variable(num_shifts, label=name)
+
+    # Use linear weights to assign employee preferences
+    for name in preferences:
+        dqm.set_linear(name, preferences[name])
+
+    return dqm
+
+# Solve the problem
+def solve_problem(dqm, sampler):
+    '''Runs the provided dqm object on the designated sampler'''
+
+    # Initialize the DQM solver
+    sampler = set_sampler()
+
+    # Solve the problem using the DQM solver
+    sampleset = sampler.sample_dqm(dqm)
+
+    return sampleset
+
+# Process solution
+def process_sampleset(sampleset):
+    '''Processes the best solution found for displaying'''
+   
+    # Get the first solution
+    sample = sampleset.first.sample
+
+    shift_schedule=[ [] for i in range(4)]
+
+    # Interpret according to shifts
+    for key, val in sample.items():
+        shift_schedule[val].append(key)
+
+    return shift_schedule
+
+## ------- Main program -------
+if __name__ == "__main__":
+
+    # Problem information
+    shifts = [1, 2, 3, 4]
+    num_shifts = len(shifts)
+
+    dqm = build_dqm()
+
+    sampler = set_sampler()
+
+    sampleset = solve_problem(dqm, sampler)
+
+    shift_schedule = process_sampleset(sampleset)
+
+    for i in range(num_shifts):
+        print("Shift:", shifts[i], "\tEmployee(s): ", shift_schedule[i])
