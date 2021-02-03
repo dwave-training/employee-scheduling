@@ -40,3 +40,5 @@ Modify the function `build_dqm()` to reflect these additional constraints. Note 
 ## Challenge: Exercise 4
 
 For this final exercise, start with your completed file `scheduling_restrictions.py` from Exercise 3.  The optimal solution for Exercise 3 had some days with just 1 person scheduled and others with many more.  Add some linear and/or quadratic biases to your DQM so that each shift gets exactly two people scheduled.
+
+HINT: This challenge exercise will require you to think of your discrete variables/cases as individual binary variables.  For example, if variable Erik has cases 1, 2, 3, and 4, this is equivalent to four binary variables: Erik/Shift 1, Erik/Shift 2, Erik/Shift 3, and Erik/Shift 4.
