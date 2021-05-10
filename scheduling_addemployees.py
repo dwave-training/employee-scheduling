@@ -25,9 +25,7 @@ def get_token():
 def set_sampler():
     '''Returns a dimod sampler'''
 
-    token = get_token()
-    sampler = LeapHybridDQMSampler(endpoint='https://cloud.dwavesys.com/sapi/', 
-                                              token=token)
+    sampler = LeapHybridDQMSampler()
 
     return sampler
 
