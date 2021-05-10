@@ -73,7 +73,7 @@ def solve_problem(dqm, sampler):
     sampler = set_sampler()
 
     # Solve the problem using the DQM solver
-    sampleset = sampler.sample_dqm(dqm)
+    sampleset = sampler.sample_dqm(dqm, label='Training - Employee Scheduling')
 
     return sampleset
 
