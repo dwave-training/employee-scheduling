@@ -1,3 +1,7 @@
+[![Open in Leap IDE](	
+	https://cdn-assets.cloud.dwavesys.com/shared/latest/badges/leapide.svg)](
+	https://ide.dwavesys.io/#https://github.com/dwave-training/employee-scheduling)
+
 # The Employee Scheduling Problem
 
 Exercise for D-Wave training courses to demonstrate the DQM solver.
