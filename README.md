@@ -17,7 +17,7 @@ Open the code file `scheduling_preferences.py` and take a look at how we're buil
 1. Initialize the CQM object with `cqm = ConstrainedQuadraticModel()`.
 2. Create labels for binary variables for each employee in each shift.
 3. Add discrete constraints over employee binaries for each employee with `cqm.add_discrete(...)`.
-4. Incremmentally add objective terms as linear biases based on the employee preferences with `cqm.objective.add_linear_from(...)`.
+4. Add objective terms as linear biases based on the employee preferences with `cqm.objective.add_linear_from(...)`.
 
 ## Exercise 2
 
