@@ -91,9 +91,6 @@ if __name__ == "__main__":
     sample = sampleset.first.sample
     energy = sampleset.first.energy
 
-    # Display sample information
-    print(sample, energy, "\n")
-
     # Interpret according to shifts
     for key, val in sample.items():
         if val ==1.0:
