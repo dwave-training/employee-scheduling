@@ -92,7 +92,6 @@ def process_sampleset(sampleset):
         if val == 1.0:
             name = key.split('_')[1]
             shift = int(key.split('_')[2])
-            #print("Schedule", name, "for shift", shifts[shift])
             shift_schedule[shift].append(name)
 
     return shift_schedule
