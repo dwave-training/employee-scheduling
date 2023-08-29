@@ -42,7 +42,7 @@ Modify the function `build_cqm()` to reflect these additional constraints. Note 
 
 ## Challenge: Exercise 4
 
-For this final exercise, start with your completed file `scheduling_restrictions.py` from Exercise 3.  The optimal solution for Exercise 3 had some days with just 1 person scheduled and others with many more.  Add some linear and/or quadratic biases to your CQM so that each shift gets exactly two people scheduled.
+For this final exercise, start with your completed file `scheduling_restrictions.py` from Exercise 3.  The optimal solution for Exercise 3 had some days with just 1 person scheduled and others with many more.  Add a constraint to your CQM so that each shift gets exactly two people scheduled.
 
 ## License
 
