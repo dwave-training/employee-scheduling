@@ -4,7 +4,7 @@
 
 # The Employee Scheduling Problem
 
-Exercise for D-Wave training courses to demonstrate the DQM solver.
+Exercise for D-Wave training courses to demonstrate the CQM solver.
 
 ## Exercise 1
 
@@ -12,13 +12,12 @@ We'll be working with the file `scheduling_preferences.py`. This program conside
 
 ![Employee preference rankings](scheduling_preferences.png "Employee Preferences")
 
-Open the code file `scheduling_preferences.py` and take a look at how we're building up our discrete quadratic model, or DQM.
+Open the code file `scheduling_preferences.py` and take a look at how we're building up our constrained quadratic model, or CQM.
 
-1. Initialize the DQM object with `dqm = DiscreteQuadraticModel()`.
-2. Add the variables we're using with `dqm.add_variable(...)`.
-3. Set the linear biases with `dqm.set_linear(...)`.
-
-Note that this problem does not have any quadratic biases - we're only considering the employees' individual rankings at this time.
+1. Initialize the CQM object with `cqm = ConstrainedQuadraticModel()`.
+2. Create labels for binary variables for each employee in each shift.
+3. Add discrete constraints over employee binaries for each employee with `cqm.add_discrete(...)`.
+4. Incremmentally add objective terms as linear biases based on the employee preferences with `cqm.objective.add_linear_from(...)`.
 
 ## Exercise 2
 
