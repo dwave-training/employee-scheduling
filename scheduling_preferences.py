@@ -96,4 +96,4 @@ if __name__ == "__main__":
         if val ==1.0:
             name = key.split('_')[1]
             shift = int(key.split('_')[2])
-            print("Schedule", key, "for shift", shifts[shift])
+            print("Schedule", name, "for shift", shifts[shift])
