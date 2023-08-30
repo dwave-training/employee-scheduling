@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dimod import DiscreteQuadraticModel
-from dwave.system import LeapHybridDQMSampler
+from dimod import ConstrainedQuadraticModel
+from dwave.system import LeapHybridCQMSampler
 
 def get_token():
     '''Returns personal access token. Only required if submitting to autograder.'''
@@ -25,7 +25,7 @@ def get_token():
 def set_sampler():
     '''Returns a dimod sampler'''
 
-    sampler = LeapHybridDQMSampler()
+    sampler = LeapHybridCQMSampler()
 
     return sampler
 
@@ -44,41 +44,48 @@ def employee_preferences():
 
     return preferences
 
-# Create DQM object
-def build_dqm():
-    '''Builds the DQM for our problem'''
+# Create CQM object
+def build_cqm():
+    '''Builds the CQM for our problem'''
 
     preferences = employee_preferences()
     num_shifts = 4
 
-    # Initialize the DQM object
-    dqm = DiscreteQuadraticModel()
+    # Initialize the CQM object
+    cqm = ConstrainedQuadraticModel()
 
-    # Build the DQM starting by adding variables
-    for name in preferences:
-        dqm.add_variable(num_shifts, label=name)
+    # Represent shifts as a set of binary variables
+    # for each employee
+    for employee, preference in preferences.items():
+        # Create labels for binary variables
+        labels = [f"x_{employee}_{shift}" for shift in range(num_shifts)]
+    
+        # Add a discrete constraint over employee binaries
+        cqm.add_discrete(labels, label=f"discrete_{employee}")
 
-    # Use linear weights to assign employee preferences
-    for name in preferences:
-        dqm.set_linear(name, preferences[name])
+        # Incrementally add objective terms as list of (label, bias)
+        cqm.objective.add_linear_from([*zip(labels, preference)])
 
     # TODO: Restrict Anna from working shift 4
 
-    # TODO: Set some quadratic biases to reflect the restrictions in the README.
+    # TODO: Set constraints to reflect the restrictions in the README.
 
-    return dqm
+    return cqm
 
 # Solve the problem
-def solve_problem(dqm, sampler):
-    '''Runs the provided dqm object on the designated sampler'''
+def solve_problem(cqm, sampler):
+    '''Runs the provided cqm object on the designated sampler'''
 
-    # Initialize the DQM solver
+    # Initialize the CQM solver
     sampler = set_sampler()
 
-    # Solve the problem using the DQM solver
-    sampleset = sampler.sample_dqm(dqm, label='Training - Employee Scheduling')
+    # Solve the problem using the CQM solver
+    sampleset = sampler.sample_cqm(cqm, label='Training - Employee Scheduling')
 
-    return sampleset
+    # Filter for feasible samples
+    feasible_sampleset = sampleset.filter(lambda x:x.is_feasible)
+
+    return feasible_sampleset
 
 # Process solution
 def process_sampleset(sampleset):
@@ -91,7 +98,10 @@ def process_sampleset(sampleset):
 
     # Interpret according to shifts
     for key, val in sample.items():
-        shift_schedule[val].append(key)
+         if val == 1.0:
+            name = key.split('_')[1]
+            shift = int(key.split('_')[2])
+            shift_schedule[shift].append(name)
 
     return shift_schedule
 
@@ -102,11 +112,11 @@ if __name__ == "__main__":
     shifts = [1, 2, 3, 4]
     num_shifts = len(shifts)
 
-    dqm = build_dqm()
+    cqm = build_cqm()
 
     sampler = set_sampler()
 
-    sampleset = solve_problem(dqm, sampler)
+    sampleset = solve_problem(cqm, sampler)
 
     shift_schedule = process_sampleset(sampleset)
 
