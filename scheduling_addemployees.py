@@ -15,12 +15,6 @@
 from dimod import ConstrainedQuadraticModel
 from dwave.system import LeapHybridCQMSampler
 
-def get_token():
-    '''Returns personal access token. Only required if submitting to autograder.'''
-    
-    # TODO: Enter your token here
-    return 'YOUR-TOKEN-HERE'
-
 # Set the solver we're going to use
 def set_sampler():
     '''Returns a dimod sampler'''
