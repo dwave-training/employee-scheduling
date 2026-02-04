@@ -1,4 +1,7 @@
-
+[![Open in GitHub Codespaces](
+  https://img.shields.io/badge/Open%20in%20GitHub%20Codespaces-333?logo=github)](
+  https://codespaces.new/dwave-training/employee-scheduling?quickstart=1)
+  
 # The Employee Scheduling Problem
 
 Exercise for D-Wave training courses to demonstrate the CQM solver.
