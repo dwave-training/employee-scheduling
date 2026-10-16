@@ -64,9 +64,6 @@ def build_cqm():
 def solve_problem(cqm, sampler):
     '''Runs the provided cqm object on the designated sampler'''
 
-    # Initialize the CQM solver
-    sampler = set_sampler()
-
     # Solve the problem using the CQM solver
     sampleset = sampler.sample_cqm(cqm, label='Training - Employee Scheduling')
 
