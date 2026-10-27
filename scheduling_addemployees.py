@@ -15,22 +15,26 @@
 from dimod import ConstrainedQuadraticModel
 from dwave.system import LeapHybridCQMSampler
 
+
 # Set the solver we're going to use
 def set_sampler():
-    '''Returns a dimod sampler'''
+    """Returns a dimod sampler"""
 
     sampler = LeapHybridCQMSampler()
 
     return sampler
 
+
 # Set employees and preferences
 def employee_preferences():
-    '''Returns a dictionary of employees with their preferences'''
+    """Returns a dictionary of employees with their preferences"""
 
-    preferences = { "Anna": [1,2,3,4],
-                    "Bill": [3,2,1,4],
-                    "Chris": [4,2,3,1],
-                    "Diane": [4,1,2,3]}
+    preferences = {
+        "Anna": [1, 2, 3, 4],
+        "Bill": [3, 2, 1, 4],
+        "Chris": [4, 2, 3, 1],
+        "Diane": [4, 1, 2, 3],
+    }
 
     # TODO: Add additional employees with preferences
 
@@ -39,7 +43,7 @@ def employee_preferences():
 
 # Create CQM object
 def build_cqm():
-    '''Builds the CQM for our problem'''
+    """Builds the CQM for our problem"""
 
     preferences = employee_preferences()
     num_shifts = 4
@@ -51,7 +55,7 @@ def build_cqm():
     for employee, preference in preferences.items():
         # Create labels for binary variables
         labels = [f"x_{employee}_{shift}" for shift in range(num_shifts)]
-    
+
         # Add a discrete constraint over employee binaries
         cqm.add_discrete(labels, label=f"discrete_{employee}")
 
@@ -60,35 +64,35 @@ def build_cqm():
 
     return cqm
 
+
 # Solve the problem
 def solve_problem(cqm, sampler):
-    '''Runs the provided cqm object on the designated sampler'''
-
-    # Initialize the CQM solver
-    sampler = set_sampler()
+    """Runs the provided cqm object on the designated sampler"""
 
     # Solve the problem using the CQM solver
-    sampleset = sampler.sample_cqm(cqm, label='Training - Employee Scheduling')
+    sampleset = sampler.sample_cqm(cqm, label="Training - Employee Scheduling")
 
     return sampleset
 
+
 # Process solution
 def process_sampleset(sampleset):
-    '''Processes the best solution found for displaying'''
-   
+    """Processes the best solution found for displaying"""
+
     # Get the first solution
     sample = sampleset.first.sample
 
-    shift_schedule=[ [] for i in range(4)]
+    shift_schedule = [[] for i in range(4)]
 
     # Interpret according to shifts
     for key, val in sample.items():
         if val == 1.0:
-            name = key.split('_')[1]
-            shift = int(key.split('_')[2])
+            name = key.split("_")[1]
+            shift = int(key.split("_")[2])
             shift_schedule[shift].append(name)
 
     return shift_schedule
+
 
 ## ------- Main program -------
 if __name__ == "__main__":
